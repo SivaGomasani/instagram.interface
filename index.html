@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+        .main
+        {
+            display:grid;
+            grid-template-columns: repeat(2,auto);
+        }
+        header a:hover
+        {
+            color: aqua;
+        }
+        header
+        {
+            color: black;
+            height: 100vh;
+            width: 12em;
+            position: fixed;
+            margin-right: 1em;
+        }
+        .navbar
+        {
+            height: inherit;
+            display: grid;
+            gap: 2em;
+            background-color: rgb(44, 46, 66);
+            box-shadow: 0 10px 1em;
+            justify-content: space-between;
+            border-right: 2px solid rgba(43, 43, 44, 0.422);
+            text-align: justify;    
+        }
+        .navbar a
+        {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3em;
+            padding: 0.5em;
+        }
+        .navbar i
+        {
+            font-size: 1.3em;
+        }
+        .navbar span
+        {
+            font-size: 0.8em;
+        }
+        .navbar>.navbar-nav,.navbar>.navbar-links,.navbar>.insta-logo
+        {
+            margin: 1em;
+            padding-left: 0.5em;
+            display: grid;
+        }
+        .navbar span
+        {
+            padding-left: 0.5em;
+        }
+        .hide-nav
+        {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 4em;
+            z-index: 1000;
+            display: flex;
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); 
+            display: flex;
+            text-align: center;
+            align-items: center;
+        }
+        .hide-nav a
+        {
+            position: absolute;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: white;
+            padding: .7em;
+        }
+        .hide-nav .nav-notification
+        {
+            position: absolute;
+            right: 0;
+        }
+        .hide-nav .nav-chat
+        {
+            position: absolute;
+            right: 3em;
+            border: none;
+        }
+       @media (max-width:1170px)
+       {
+            .navbar span
+            {
+                display: none;
+            }
+            header
+            {
+                width: 5em;
+            }
+       }
+       @media (max-width: 730px) 
+       {
+        .navbar
+        {
+            position: absolute;
+            left: -20em;
+        }
+        .navbar-nav {
+            display: grid;
+            grid-template-columns: repeat(5,auto);
+            position: fixed;
+            bottom: -1em; 
+            left: -1em;
+            width: 100%;
+            justify-content: space-evenly;
+            background-color: rgb(44, 46, 66); 
+            padding: 10px 0; 
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000; 
+        }
+        .navbar-nav .nav-search,.navbar-nav>.nav-notification,.nav-threads,.nav-settings-menu,.navbar>.insta-logo,.navbar-nav>.nav-chat
+        {
+            display: none;
+        }
+        .hide-nav
+        {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            color: white;
+            background-color: rgb(44, 46, 66);
+        }
+     }
+        @media (min-width: 730px) 
+        {
+            .hide-nav
+            {
+                display: none;
+            }
+        }
+
+
+        /* Content - styling */
+
+
+        .content
+        {
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+        }
+        @media (max-width: 730px) 
+        {
+            .content
+            {
+                top: 0;
+                margin-top: 4em;
+                width: 100%;
+                z-index: -1;
+                position: absolute;
+
+            }
+        }
+        @media (min-width:730px) 
+        {
+            .content
+            {
+                top: 0;
+                position: absolute;
+                margin-left: 5em;
+                width: 90%;
+            }
+        }
+        @media (min-width:1170px)
+        {
+            .content
+            {
+                position: absolute;
+                left: 0;
+                margin-left: 12em;
+                width: 87.2%;
+            }
+        }
+
+        .content>.stories
+        {
+            height: 10em;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            display:grid ;
+            grid-template-columns: repeat(100,auto);
+            box-sizing: border-box;
+            border-bottom: 2px solid rgba(24, 20, 20, 0.468);
+            text-align: center;
+            align-items: center;
+            padding: 1em;
+        }
+        ::-webkit-scrollbar
+        {
+            width: 0;
+        }
+        .content>.stories .story
+        {
+            width: 8em;
+            height: 8em;
+            display: inline;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            margin-right: 1em;
+            
+        }
+        .content>.stories .story .story-1
+        {
+            width: 6em;
+            height: 6em;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            margin-right: 1em;
+            background: linear-gradient(45deg,orange,red,pink,blue,aqua);
+        }
+        .content>.stories .story span
+        {
+            display: flex;
+            padding-top: .5em;
+            padding-left: 1.5em;
+        }
+        .content>.stories>.story .story-1 img
+        {
+            height: 5.6em;
+            width: 5.6em;
+            border-radius: 50%;
+        }
+        .content>.stories>.story a
+        {
+            text-decoration: none;
+            color: aqua;
+        }
+        .active {
+            border: 1em solid;
+        }
+        /* post styling */
+
+        .posts
+        {
+            margin: 2em;
+            padding: 1em 0em;
+            text-align: center;
+        }
+        .posts>.post
+        {
+            width: inherit;
+            height: inherit;
+            padding: 1em 0em;
+            display: block;
+            justify-content: space-evenly;
+            text-align: center;
+        }
+        @media (min-width:500px) 
+        {
+            .posts
+            {
+                display: grid;
+                justify-content: center;
+            }
+            .posts>.post
+            {
+                min-width: 30em;
+            }
+        }
+        @media (min-width:1170px) 
+        {
+            .posts>.post
+            {
+                display: grid;
+                grid-template-columns: repeat(2,auto);
+                column-gap: 2em;
+                width: 1100px;
+            }
+        }
+        .posts>.post>.post-1
+        {
+            background-color: rgb(0, 0, 0);
+            position: relative;
+            width: inherit;
+            max-width: 30em;
+            height: 40em;
+            padding: 1em;
+            border: 2px solid greenyellow;
+            margin-bottom: 2em;
+        }
+        .posts>.post>.post-1 a
+        {
+            text-decoration: none;
+            color: aqua;
+        }
+        .posts>.post>.post-1 .logo
+        {
+            font-size: 3em;
+            position: absolute;
+            
+        }
+        .posts>.post>.post-1 .name
+        {
+            font-size: 1.5em;
+            position: absolute;
+            left: 3em;
+        }
+        .posts>.post>.post-1 .menu
+        {
+            position: absolute;
+            right: 0;
+            padding-right: 1em;
+            font-size: 1.5em;
+        }
+        .posts>.post>.post-1 .follow
+        {
+            position: absolute;
+            right: 3em;
+            padding-top: 2px;
+        }
+        .follow.clicked {
+            background-color: red; 
+            border: 2px solid; 
+            color: white; 
+        }
+        .posts>.post>.post-1 img
+        {
+            border: 2px solid aqua;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 95%;
+            height: 32em;
+        }
+        .posts>.post>.post-1 .like
+        {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 1.5em;
+            padding: 1em;
+        }
+        .like i {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .post-1 .like i.red
+        {
+            color: red;
+        }
+        .posts>.post>.post-1 .comment
+        {
+            position: absolute;
+            bottom: 0;
+            left: 2em;
+            font-size: 1.5em;
+            padding: 1em;
+        }
+        .posts>.post>.post-1 .share
+        {
+            position: absolute;
+            bottom: 0;
+            left: 4em;
+            padding: 1em;
+            font-size: 1.5em;
+        }
+        .posts>.post>.post-1 .save
+        {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 1em;
+            font-size: 1.5em;
+        }
+        @media (max-width:500px)
+        {
+            .posts>.post>.post-1 .name
+            {
+                font-size: 1em;
+                position: absolute;
+                padding-left: 0.2em;
+            }
+            .posts>.post>.post-1 .logo
+            {
+                font-size: 2em;
+            }
+            .post-1
+            {
+                width: 30em;
+                height: 30em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <header>
+            <nav class="hide-nav">
+                <a href="#insta-logo" class="insta-logo"><span>instagram</span></a>
+                <a href="#notification" class="nav-notification"><i class="fa-regular fa-heart"></i></a>
+                <a href="#chat" class="nav-chat"><i class="fa-brands fa-facebook-messenger"></i></a>
+            </nav>
+            <nav class="navbar">
+                <div class="insta-logo"><a href="#insta-logo" class="insta-logo"><i class="fa-brands fa-instagram"></i><span>instagram</span></a></div>
+                <div class="navbar-nav">
+                    <a href="#home" class="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+                    <a href="#search" class="nav-search"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></a>
+                    <a href="#explore" class="nav-explore"><i class="fa-regular fa-compass"></i><span>Explore</span></a>
+                    <a href="#reels" class="nav-reels"><i class="fa-solid fa-clapperboard"></i><span>Reels</span></a>
+                    <a href="#chat" class="nav-chat"><i class="fa-brands fa-facebook-messenger"></i><span>Messages</span></a>
+                    <a href="#notification" class="nav-notification"><i class="fa-regular fa-heart"></i><span>Notifications</span></a>
+                    <a href="#upload" class="nav-upload"><i class="fa-solid fa-plus"></i><span>New Post</span></a>
+                    <a href="#profile" class="nav-profile"><i class="fa-regular fa-circle-user"></i><span>Profile</span></a>
+                </div>
+                <div class="navbar-links">
+                    <a href="#threads" class="nav-threads"><i class="fa-brands fa-threads"></i><span>Threads</span></a>
+                    <a href="#settings-menu" class="nav-settings-menu"><i class="fa-solid fa-bars"></i><span>More</span></a>
+                </div>
+            </nav>
+        </header>
+        <section>
+            <div class="content">
+                <div class="stories">
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                    <div class="story">
+                        <a href="#story">
+                            <div class="story-1">
+                                <img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt="">
+                            </div>
+                            <span>my story</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="posts">
+                    <div class="post">
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                        <div class="post-1">
+                            <a href="#profile"><div class="logo"><i class="fa-regular fa-circle-user"></i></div></a>
+                            <a href="#profile"><div class="name">attitude_star_ravan</div></a>
+                            <div class="follow" id="toggleButton"><button>follow</button></div>
+                            <a href="#menu"><div class="menu"><i class="fa-solid fa-ellipsis-vertical"></i></div></a>
+                            <div class="pic"><img src="images/Shiv Parivar Wallpapers, HD Images, Photos, Pictures Free Download.jpeg" alt=""></div>
+                            <a href="#like"><div class="like" id="likeButton"><i class="fa-regular fa-heart"></i></div></a>
+                            <a href="#comment"><div class="comment"><i class="fa-regular fa-comment"></i></div></a>
+                            <a href="#share"><div class="share"><i class="fa-solid fa-paper-plane"></i></div></a>
+                            <a href="#save"><div class="save"><i class="fa-solid fa-bookmark"></i></div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        document.querySelectorAll('.follow button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('clicked');
+                if (this.innerText === 'follow') {
+                    this.innerText = 'following';
+                } else {
+                    this.innerText = 'follow';
+                }
+            });
+        });
+        document.querySelectorAll('.like i').forEach(icon => {
+            icon.addEventListener('click', function() {
+                this.classList.toggle('red');
+            });
+        });
+        document.querySelectorAll('.stories a').forEach(anchor => {
+            anchor.addEventListener('click', function(event) {
+                // Remove 'active' class from all story-1 divs
+                document.querySelectorAll('.story-1').forEach(div => div.classList.remove('active'));
+                // Add 'active' class to the clicked element
+                this.querySelector('.story-1').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
